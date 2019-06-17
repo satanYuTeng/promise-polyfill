@@ -30,7 +30,7 @@ promise 表示一个异步操作的最终结果。使用的主要方式是通过
 1.4. “exception” is a value that is thrown using the throw statement.   
 1.5. “reason” is a value that indicates why a promise was rejected.
 
-1. 术语
+1. 术语  
 1.1 “promise” 是一个符合此规范的object或是function。  
 1.2 “thenable” 是一个定义了then方法的object或者function。  
 1.3 “value” 代表了一切合法的JavaScript值（包括undefined, thenable, 或者一个promise）。  
