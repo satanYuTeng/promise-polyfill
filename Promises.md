@@ -23,52 +23,52 @@ promise 表示一个异步操作的最终结果。使用的主要方式是通过
 
 最后，Promises/A+规范的核心不是去描述如何去创建，完成，拒绝promises，而是专注于提供一个可操作的then方法。未来配套的规范会去定义他们。
 
-> Terminology
-1.1. “promise” is an object or function with a then method whose behavior conforms to this specification.
-1.2. “thenable” is an object or function that defines a then method.
-1.3. “value” is any legal JavaScript value (including undefined, a thenable, or a promise).
-1.4. “exception” is a value that is thrown using the throw statement.
+> 1. Terminology  
+1.1 “promise” is an object or function with a then method whose behavior conforms to this specification.   
+1.2. “thenable” is an object or function that defines a then method.   
+1.3. “value” is any legal JavaScript value (including undefined, a thenable, or a promise).  
+1.4. “exception” is a value that is thrown using the throw statement.   
 1.5. “reason” is a value that indicates why a promise was rejected.
 
 1. 术语
-1.1 “promise” 是一个符合此规范的object或是function。
-1.2 “thenable” 是一个定义了then方法的object或者function。
-1.3 “value” 代表了一切合法的JavaScript值（包括undefined, thenable, 或者一个promise）。
-1.4 “exception” 代表了通过throw语句扔出的值。
+1.1 “promise” 是一个符合此规范的object或是function。  
+1.2 “thenable” 是一个定义了then方法的object或者function。  
+1.3 “value” 代表了一切合法的JavaScript值（包括undefined, thenable, 或者一个promise）。  
+1.4 “exception” 代表了通过throw语句扔出的值。  
 1.5 “reason” 说明了promise 为什么被 rejected了的值。
 
-> Requirements
+> 2. Requirements
 2.1. Promise States
-A promise must be in one of three states: pending, fulfilled, or rejected.
- 2.1.1. When pending, a promise:
-  2.1.1.1. may transition to either the fulfilled or rejected state.
- 2.1.2. When fulfilled, a promise:
-  2.1.2.1. must not transition to any other state.
-  2.1.2.2. must have a value, which must not change.
- 2.1.3. When rejected, a promise:
-  2.1.3.1. must not transition to any other state.
-  2.1.3.2. must have a reason, which must not change.
+A promise must be in one of three states: pending, fulfilled, or rejected.  
+2.1.1. When pending, a promise:  
+2.1.1.1. may transition to either the fulfilled or rejected state.  
+2.1.2. When fulfilled, a promise:  
+2.1.2.1. must not transition to any other state.  
+2.1.2.2. must have a value, which must not change.  
+2.1.3. When rejected, a promise:  
+2.1.3.1. must not transition to any other state.  
+2.1.3.2. must have a reason, which must not change.  
 Here, “must not change” means immutable identity (i.e. ===), but does not imply deep immutability.
 
 2. 要求
-2.1 promise的状态 promise只能是pending, fulfilled, rejected三种状态中一种。
- 2.1.1 如果处于pending状态，promise:
-  2.1.1.1. 可以转化为fulfilled状态或rejected状态。
- 2.1.2. 如果处于fulfilled状态，promise:
-  2.1.2.1. 不能转化为其他的状态。
-  2.1.2.2. 必须是不会变化的value。
- 2.1.3. 如果处于rejected状态，promise：
-  2.1.3.1. 不能变成其他的状态。
-  2.1.3.2. 必须有一个不变的reason。
+2.1 promise的状态 promise只能是pending, fulfilled, rejected三种状态中一种。  
+2.1.1 如果处于pending状态，promise:  
+2.1.1.1. 可以转化为fulfilled状态或rejected状态。  
+2.1.2. 如果处于fulfilled状态，promise:  
+2.1.2.1. 不能转化为其他的状态。  
+2.1.2.2. 必须是不会变化的value。  
+2.1.3. 如果处于rejected状态，promise：  
+2.1.3.1. 不能变成其他的状态。  
+2.1.3.2. 必须有一个不变的reason。  
 在这里，不变指的是完全不变，（可用===校验），但是不是属性不能变。
 
-2.2 The then Method
-  A promise must provide a then method to access its current or eventual value or reason.
-  A promise’s then method accepts two arguments:
-```promise.then(onFulfilled, onRejected)```
-2.2.1. Both onFulfilled and onRejected are optional arguments:
-  2.2.1.1. If onFulfilled is not a function, it must be ignored.
-  2.2.1.2. If onRejected is not a function, it must be ignored.
+> 2.2 The then Method  
+A promise must provide a then method to access its current or eventual value or reason.  
+A promise’s then method accepts two arguments:
+```promise.then(onFulfilled, onRejected)```  
+2.2.1. Both onFulfilled and onRejected are optional arguments:  
+2.2.1.1. If onFulfilled is not a function, it must be ignored.  
+2.2.1.2. If onRejected is not a function, it must be ignored.  
 2.2.2. If onFulfilled is a function:
   2.2.2.1. it must be called after promise is fulfilled, with promise’s value as its first argument.
   2.2.2.2. it must not be called before promise is fulfilled.
@@ -148,24 +148,49 @@ Promise的决议过程是一个抽象的运算， 输入为一个promise与一�
 [[Resolve]](promise, x)的执行过程如下：
 2.3.1. 如果promise与x是同一个对象，promise使用TypeError作为reason进行reject。
 2.3.2. 如果x是一个promise, 判断x的状态：[3.4]
- 2.3.2.1. 如果x是pending状态，promise也必须保持pending状态，直到x变为fulfilled或者rejected。
- 2.3.2.2. 当x是fulfilled状态，promise使用x的value进行fulfill。
- 2.3.2.3. 当x是rejected状态，promise使用x的reason进行reject。
+  2.3.2.1. 如果x是pending状态，promise也必须保持pending状态，直到x变为fulfilled或者rejected。
+  2.3.2.2. 当x是fulfilled状态，promise使用x的value进行fulfill。
+  2.3.2.3. 当x是rejected状态，promise使用x的reason进行reject。
 2.3.3. 如果x不是promise，而是object或是function。
- 2.3.3.1. 使用x.then作为promise的then。[3.5]
- 2.3.3.2. 如果检索x的then属性出错e，promise使用e做为reason进行reject。
- 2.3.3.3. 如果then是function，以x为作用域调用then, 像使用this一样，第一个参数是resolvePromise， 第二个参数是rejectPromise。
-  2.3.3.3.1. 如果resolvePromise以value y为参数被调用，则执行[[Resolve]](promise, y)。
-  2.3.3.3.2. 如果resolvePromise以reason r为参数被调用，则用r为参数reject promise。
-  2.3.3.3.3. 如果resolvePromise和rejectPromise都被调用了，或者被同一个参数多次调用，优先执行第一次调用，其余的忽略。
-  2.3.3.3.4. 如果调用then时，扔出错误e。
-   2.3.3.3.4.1. 如果resolvePromise或者rejectPromise已经被调用，忽略他。
-   2.3.3.3.4.2. 否则，以e为reason进行reject。
- 2.3.3.4. 如果then不是function，promise fulfill x。
+  2.3.3.1. 使用x.then作为promise的then。[3.5]
+  2.3.3.2. 如果检索x的then属性出错e，promise使用e做为reason进行reject。
+  2.3.3.3. 如果then是function，以x为作用域调用then, 像使用this一样，第一个参数是resolvePromise， 第二个参数是rejectPromise。
+    2.3.3.3.1. 如果resolvePromise以value y为参数被调用，则执行[[Resolve]](promise, y)。
+    2.3.3.3.2. 如果resolvePromise以reason r为参数被调用，则用r为参数reject promise。
+    2.3.3.3.3. 如果resolvePromise和rejectPromise都被调用了，或者被同一个参数多次调用，优先执行第一次调用，其余的忽略。
+    2.3.3.3.4. 如果调用then时，扔出错误e。
+      2.3.3.3.4.1. 如果resolvePromise或者rejectPromise已经被调用，忽略他。
+      2.3.3.3.4.2. 否则，以e为reason进行reject。
+    2.3.3.4. 如果then不是function，promise fulfill x。
 2.3.4. 如果x不是object或者function，promise fulfill x。
 如果promise被一个由thenable组成的循环链resolved，那么promise的决策过程将执行决策过程，造成无限递归。鼓励提供对这种递归的检测并且用TypeError去reject promise，但是不是必须去实现。[3.6]
 
-作者：nanchenk
-链接：https://juejin.im/post/5b0b8cff518825154c405992
-来源：掘金
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+> 3. Notes
+3.1 Here “platform code” means engine, environment, and promise implementation code. In practice, this requirement ensures that onFulfilled and onRejected execute asynchronously, after the event loop turn in which then is called, and with a fresh stack. This can be implemented with either a “macro-task” mechanism such as setTimeout or setImmediate, or with a “micro-task” mechanism such as MutationObserver or process.nextTick. Since the promise implementation is considered platform code, it may itself contain a task-scheduling queue or “trampoline” in which the handlers are called.
+
+3. 附录
+3.1. 这里的“平台代码”指的是引擎，环境，promise 实现代码。实际上，要求确保onFulfilled和OnRejected异步执行，在then所在的事件轮询后被调用，并且在新的堆栈中。可以用setTimeout或者setImmediate之类的“宏任务”去实现。或者MutationObserver或者process.nextTick之类的“微任务”去实现。因为promise的实现被认为是平台代码，他可能包含自身任务队列。
+
+ps: 异步任务时，JS引擎会将任务划分至macrotask和microtask任务队列，执行一个macrotask的任务后，执行全部的microtask任务，直到所有任务执行完。
+
+> 3.2. That is, in strict mode this will be undefined inside of them; in sloppy mode, it will be the global object.
+
+在严格模式下，this可能为undefined。在马虎模式下，它是全局对象
+
+> 3.3. Implementations may allow promise2 === promise1, provided the implementation meets all requirements. Each implementation should document whether it can produce promise2 === promise1 and under what conditions.
+
+3.3. 如果实现所有要求，可能允许promise2 = promise1，但是每个实现上述规则的实例，都应该记录什么情况下才可以产生promise2 === promise1。
+
+> 3.4. Generally, it will only be known that x is a true promise if it comes from the current implementation. This clause allows the use of implementation-specific means to adopt the state of known-conformant promises.
+
+
+3.4. 只有符合现有规范的才是真正的promise，该条文允许使用特定的实现方式的库接受符合已知promise的state
+
+> 3.5  This procedure of first storing a reference to x.then, then testing that reference, and then calling that reference, avoids multiple accesses to the x.then property. Such precautions are important for ensuring consistency in the face of an accessor property, whose value could change between retrievals.
+
+3.5. 决议的过程会先缓存x.then的引用，然后测试此引用，然后调用他，避免多次访问他。这种预防措施对确保访问属性的一致性非常重要，因为每次访问的值可能不一样。
+
+> 3.6. Implementations should not set arbitrary limits on the depth of thenable chains, and assume that beyond that arbitrary limit the recursion will be infinite. Only true cycles should lead to a TypeError; if an infinite chain of distinct thenables is encountered, recursing forever is the correct behavior.
+
+3.6. 实现不应该设置thenable链的最大长度，不能假设超过了设置的最大长度就是无限循环的调用。因为只有真正无限递归的调用会扔出TypeError; 如果一个无限链上的每个thenable对象都不同，那他就应该无限调用下去。
+
