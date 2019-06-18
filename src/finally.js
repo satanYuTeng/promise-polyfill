@@ -1,5 +1,6 @@
 /**
  * @this {Promise}
+ * finally方法总会返回原来的值
  */
 function finallyConstructor(callback) {
   var constructor = this.constructor;
