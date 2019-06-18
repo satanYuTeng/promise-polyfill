@@ -69,106 +69,106 @@ A promise’s then method accepts two arguments:
 2.2.1. Both onFulfilled and onRejected are optional arguments:  
 2.2.1.1. If onFulfilled is not a function, it must be ignored.  
 2.2.1.2. If onRejected is not a function, it must be ignored.  
-2.2.2. If onFulfilled is a function:
-  2.2.2.1. it must be called after promise is fulfilled, with promise’s value as its first argument.
-  2.2.2.2. it must not be called before promise is fulfilled.
-  2.2.2.3. it must not be called more than once.
+2.2.2. If onFulfilled is a function:  
+2.2.2.1. it must be called after promise is fulfilled, with promise’s value as its first argument.  
+2.2.2.2. it must not be called before promise is fulfilled.  
+2.2.2.3. it must not be called more than once.
 2.2.3. If onRejected is a function
-  2.2.3.1. it must be called after promise is rejected, with promise’s reason as its first argument.
-  2.2.3.2. it must not be called before promise is rejected.
-  2.2.3.3. it must not be called more than once.
-2.2.4. onFulfilled or onRejected must not be called until the execution context stack contains only platform code. [3.1].
+2.2.3.1. it must be called after promise is rejected, with promise’s reason as its first argument.  
+2.2.3.2. it must not be called before promise is rejected.  
+2.2.3.3. it must not be called more than once.  
+2.2.4. onFulfilled or onRejected must not be called until the execution context stack contains only platform code. [3.1].  
 2.2.5. onFulfilled and onRejected must be called as functions (i.e. with no this value). [3.2]
-2.2.6. then may be called multiple times on the same promise.
-  2.2.6.1. If/when promise is fulfilled, all respective onFulfilled callbacks must execute in the order of their originating calls to then.
-  2.2.6.2. If/when promise is rejected, all respective onRejected callbacks must execute in the order of their originating calls to then.
-2.2.7. then must return a promise [3.3].
-promise2 = promise1.then(onFulfilled, onRejected);
-  2.2.7.1. If either onFulfilled or onRejected returns a value x, run the Promise Resolution Procedure [[Resolve]](promise2, x).
-  2.2.7.2. If either onFulfilled or onRejected throws an exception e, promise2 must be rejected with e as the reason.
-  2.2.7.3. If onFulfilled is not a function and promise1 is fulfilled, promise2 must be fulfilled with the same value as promise1.
-  2.2.7.4. If onRejected is not a function and promise1 is rejected, promise2 must be rejected with the same reason as promise1.
+2.2.6. then may be called multiple times on the same promise.  
+2.2.6.1. If/when promise is fulfilled, all respective onFulfilled callbacks must execute in the order of their originating calls to then.  
+2.2.6.2. If/when promise is rejected, all respective onRejected callbacks must execute in the order of their originating calls to then.  
+2.2.7. then must return a promise [3.3].  
+```promise2 = promise1.then(onFulfilled, onRejected);```  
+2.2.7.1. If either onFulfilled or onRejected returns a value x, run the Promise Resolution Procedure [[Resolve]](promise2, x).  
+2.2.7.2. If either onFulfilled or onRejected throws an exception e, promise2 must be rejected with e as the reason.  
+2.2.7.3. If onFulfilled is not a function and promise1 is fulfilled, promise2 must be fulfilled with the same value as promise1.  
+2.2.7.4. If onRejected is not a function and promise1 is rejected, promise2 must be rejected with the same reason as promise1.
 
 2.2. then 方法
-一个 promise 必须提供 then 方法去访问当前或最终的 value 或者 reason。
-一个 promise 的 then 方法接受两个参数：
-```promise.then(onFulfilled,onRejected)```
-2.2.1. 如果 onFulfilled,onRejected 都是可选参数：
-  2.2.1.1. 如果onFulfilled不是function，则必须忽略。
-  2.2.1.2. 如果onRejected不是function, 则必须忽略。
-2.2.2. 如果onFulfilled是function:
-  2.2.2.1. 必须在promise变成fulfilled状态后被调用，value是调用时的第一个参数。
-  2.2.2.2. promise的状态没有变成fulfilled时绝对不能调用。
-  2.2.2.3. 只能被调用一次。
-2.2.3. 如果onRejected是function:
-  2.2.3.1. 必须在promise变成rejected状态后被调用，reason是调用时的第一个参数。
-  2.2.3.2. promise的状态没有变成rejected时绝对不能调用。
-  2.2.3.3. 只能被调用一次。
-2.2.4. onFulfilled或onRejected只能执行环境（平台）包含的代码。[3.1]
-2.2.5. onFulfilled或onRejected只能作为function调用（不包含this）。[3.2]
-2.2.6. then可以被一个promise调用多次。
-  2.2.6.1. 当promise变成fulfilled状态时，从一个then开始的所有onFulfilled方法必须按顺序执行。
-  2.2.6.2. 当promise变成rejected状态时，从一个then开始的所有onRejected方法必须按顺序执行。
-2.2.7. then方法必须返回一个promise。[3.3]
-```promise2=promise1.then(onFulfilled,onRejected);```
-  2.2.7.1. 如果onFulfilled或者onRejected返回了 value x, 执行Promise 决断过程[[Resolve]](promise2, x)
-  2.2.7.2. 如果onFulfilled或者onRejected返回了 exception e, promise2 必须变成rejected状态并且使用e作为reason。
-  2.2.7.3. 如果onFulfilled不是function并且promise1是fulfilled状态，promise2必须变为fulfilled状态，并且value与promise1相同。
-  2.2.7.4. 如果onRejected不是function并且promise1是rejected状态，promise2必须变为rejected状态，并且reason与promise1相同。
+一个 promise 必须提供 then 方法去访问当前或最终的 value 或者 reason。  
+一个 promise 的 then 方法接受两个参数：  
+```promise.then(onFulfilled,onRejected)```  
+2.2.1. 如果 onFulfilled,onRejected 都是可选参数：  
+2.2.1.1. 如果onFulfilled不是function，则必须忽略。  
+2.2.1.2. 如果onRejected不是function, 则必须忽略。  
+2.2.2. 如果onFulfilled是function:  
+2.2.2.1. 必须在promise变成fulfilled状态后被调用，value是调用时的第一个参数。  
+2.2.2.2. promise的状态没有变成fulfilled时绝对不能调用。  
+2.2.2.3. 只能被调用一次。  
+2.2.3. 如果onRejected是function:  
+2.2.3.1. 必须在promise变成rejected状态后被调用，reason是调用时的第一个参数。  
+2.2.3.2. promise的状态没有变成rejected时绝对不能调用。  
+2.2.3.3. 只能被调用一次。  
+2.2.4. onFulfilled或onRejected只能执行环境（平台）包含的代码。[3.1]  
+2.2.5. onFulfilled或onRejected只能作为function调用（不包含this）。[3.2]  
+2.2.6. then可以被一个promise调用多次。  
+2.2.6.1. 当promise变成fulfilled状态时，从一个then开始的所有onFulfilled方法必须按顺序执行。  
+2.2.6.2. 当promise变成rejected状态时，从一个then开始的所有onRejected方法必须按顺序执行。  
+2.2.7. then方法必须返回一个promise。[3.3]  
+```promise2=promise1.then(onFulfilled,onRejected);```  
+2.2.7.1. 如果onFulfilled或者onRejected返回了 value x, 执行Promise 决断过程[[Resolve]](promise2, x)  
+2.2.7.2. 如果onFulfilled或者onRejected返回了 exception e, promise2 必须变成rejected状态并且使用e作为reason。  
+2.2.7.3. 如果onFulfilled不是function并且promise1是fulfilled状态，promise2必须变为fulfilled状态，并且value与promise1相同。  
+2.2.7.4. 如果onRejected不是function并且promise1是rejected状态，promise2必须变为rejected状态，并且reason与promise1相同。  
 
-> 2.3. The Promise Resolution Procedure
-The promise resolution procedure is an abstract operation taking as input a promise and a value, which we denote as [[Resolve]](promise, x).
+> 2.3. The Promise Resolution Procedure  
+The promise resolution procedure is an abstract operation taking as input a promise and a value, which we denote as [[Resolve]](promise, x).  
 If x is a thenable, it attempts to make promise adopt the state of x, under the assumption that x behaves at least somewhat like a promise. Otherwise, it fulfills promise with the value x.
-This treatment of thenables allows promise implementations to interoperate, as long as they expose a Promises/A+ compliant then method. It also allows Promises/A+ implementations to “assimilate” nonconformant implementations with reasonable then methods.
-To run [[Resolve]](promise, x), perform the following steps:（x is the return of promise）
-  2.3.1. If promise and x refer to the same object, reject promise with a TypeError as the reason.
-  2.3.2. If x is a promise, adopt its state [3.4]:
-    2.3.2.1. If x is pending, promise must remain pending until x is fulfilled or rejected.
-    2.3.2.2. If/when x is fulfilled, fulfill promise with the same value.
-    2.3.2.3. If/when x is rejected, reject promise with the same reason.
-  2.3.3. Otherwise, if x is an object or function
-    2.3.3.1. Let then be x.then. [3.5]
-    2.3.3.2. If retrieving the property x.then results in a thrown exception e, reject promise with e as the reason.
-    2.3.3.3. If then is a function, call it with x as this, first argument resolvePromise, and second argument rejectPromise, where:
-      2.3.3.3.1. If/when resolvePromise is called with a value y, run [[Resolve]](promise, y).
-      2.3.3.3.2. If/when rejectPromise is called with a reason r, reject promise with r.
-      2.3.3.3.3. If both resolvePromise and rejectPromise are called, or multiple calls to the same argument are made, the first call takes precedence, and any further calls are ignored.
-      2.3.3.3.4. If calling then throws an exception e
-        2.3.3.3.4.1. If resolvePromise or rejectPromise have been called, ignore it.
-        2.3.3.3.4.2. Otherwise, reject promise with e as the reason.
-    2.3.3.4. If then is not a function, fulfill promise with x.
-  2.3.4. If x is not an object or function, fulfill promise with x.
-If a promise is resolved with a thenable that participates in a circular thenable chain, such that the recursive nature of [[Resolve]](promise, thenable) eventually causes  [[Resolve]](promise, thenable) to be called again, following the above algorithm will lead to infinite recursion.
-Implementations are encouraged, but not required, to detect such recursion and reject promise with an informative TypeError as the reason. [3.6]
+This treatment of thenables allows promise implementations to interoperate, as long as they expose a Promises/A+ compliant then method. It also allows Promises/A+ implementations to “assimilate” nonconformant implementations with reasonable then methods.  
+To run [[Resolve]](promise, x), perform the following steps:（x is the return of promise）  
+2.3.1. If promise and x refer to the same object, reject promise with a TypeError as the reason.  
+2.3.2. If x is a promise, adopt its state [3.4]:  
+2.3.2.1. If x is pending, promise must remain pending until x is fulfilled or rejected.  
+2.3.2.2. If/when x is fulfilled, fulfill promise with the same value.  
+2.3.2.3. If/when x is rejected, reject promise with the same reason.  
+2.3.3. Otherwise, if x is an object or function  
+2.3.3.1. Let then be x.then. [3.5]  
+2.3.3.2. If retrieving the property x.then results in a thrown exception e, reject promise with e as the reason.  
+2.3.3.3. If then is a function, call it with x as this, first argument resolvePromise, and second argument rejectPromise, where:  
+2.3.3.3.1. If/when resolvePromise is called with a value y, run [[Resolve]](promise, y).  
+2.3.3.3.2. If/when rejectPromise is called with a reason r, reject promise with r.  
+2.3.3.3.3. If both resolvePromise and rejectPromise are called, or multiple calls to the same argument are made, the first call takes precedence, and any further calls are ignored.  
+2.3.3.3.4. If calling then throws an exception e  
+2.3.3.3.4.1. If resolvePromise or rejectPromise have been called, ignore it.  
+2.3.3.3.4.2. Otherwise, reject promise with e as the reason.  
+2.3.3.4. If then is not a function, fulfill promise with x.  
+2.3.4. If x is not an object or function, fulfill promise with x.  
+If a promise is resolved with a thenable that participates in a circular thenable chain, such that the recursive nature of [[Resolve]](promise, thenable) eventually causes  [[Resolve]](promise, thenable) to be called again, following the above algorithm will lead to infinite recursion.  
+Implementations are encouraged, but not required, to detect such recursion and reject promise with an informative TypeError as the reason. [3.6]  
 
-2.3. Promise的决议过程
-Promise的决议过程是一个抽象的运算， 输入为一个promise与一个value值，形式如同[[Resolve]](promise, x),[个人认为x是promise的返回值]
+2.3. Promise的决议过程  
+Promise的决议过程是一个抽象的运算， 输入为一个promise与一个value值，形式如同[[Resolve]](promise, x),[个人认为x是promise的返回值]  
 如果x是thenable的（定义了then方法的 object 或者 function ），会尝试使用x的state作为promise的state，前提是x的行为至少像promise，否则，promise使用x去执行。
-这种对 thenables (包含then方法的object或者function)的处理使得promise的实现变得更灵活，只要暴露出符合Promises/A+ 的then方法即可。这也同时允许 Promises/A+ 兼容不合规范但是符合then方法的实现（thenable）。
-[[Resolve]](promise, x)的执行过程如下：
-2.3.1. 如果promise与x是同一个对象，promise使用TypeError作为reason进行reject。
-2.3.2. 如果x是一个promise, 判断x的状态：[3.4]
-  2.3.2.1. 如果x是pending状态，promise也必须保持pending状态，直到x变为fulfilled或者rejected。
-  2.3.2.2. 当x是fulfilled状态，promise使用x的value进行fulfill。
-  2.3.2.3. 当x是rejected状态，promise使用x的reason进行reject。
-2.3.3. 如果x不是promise，而是object或是function。
-  2.3.3.1. 使用x.then作为promise的then。[3.5]
-  2.3.3.2. 如果检索x的then属性出错e，promise使用e做为reason进行reject。
-  2.3.3.3. 如果then是function，以x为作用域调用then, 像使用this一样，第一个参数是resolvePromise， 第二个参数是rejectPromise。
-    2.3.3.3.1. 如果resolvePromise以value y为参数被调用，则执行[[Resolve]](promise, y)。
-    2.3.3.3.2. 如果resolvePromise以reason r为参数被调用，则用r为参数reject promise。
-    2.3.3.3.3. 如果resolvePromise和rejectPromise都被调用了，或者被同一个参数多次调用，优先执行第一次调用，其余的忽略。
-    2.3.3.3.4. 如果调用then时，扔出错误e。
-      2.3.3.3.4.1. 如果resolvePromise或者rejectPromise已经被调用，忽略他。
-      2.3.3.3.4.2. 否则，以e为reason进行reject。
-    2.3.3.4. 如果then不是function，promise fulfill x。
-2.3.4. 如果x不是object或者function，promise fulfill x。
-如果promise被一个由thenable组成的循环链resolved，那么promise的决策过程将执行决策过程，造成无限递归。鼓励提供对这种递归的检测并且用TypeError去reject promise，但是不是必须去实现。[3.6]
+这种对 thenables (包含then方法的object或者function)的处理使得promise的实现变得更灵活，只要暴露出符合Promises/A+ 的then方法即可。这也同时允许 Promises/A+ 兼容不合规范但是符合then方法的实现（thenable）。  
+[[Resolve]](promise, x)的执行过程如下：  
+2.3.1. 如果promise与x是同一个对象，promise使用TypeError作为reason进行reject。  
+2.3.2. 如果x是一个promise, 判断x的状态：[3.4]  
+2.3.2.1. 如果x是pending状态，promise也必须保持pending状态，直到x变为fulfilled或者rejected。  
+2.3.2.2. 当x是fulfilled状态，promise使用x的value进行fulfill。  
+2.3.2.3. 当x是rejected状态，promise使用x的reason进行reject。  
+2.3.3. 如果x不是promise，而是object或是function。  
+2.3.3.1. 使用x.then作为promise的then。[3.5]  
+2.3.3.2. 如果检索x的then属性出错e，promise使用e做为reason进行reject。  
+2.3.3.3. 如果then是function，以x为作用域调用then, 像使用this一样，第一个参数是resolvePromise， 第二个参数是rejectPromise。  
+2.3.3.3.1. 如果resolvePromise以value y为参数被调用，则执行[[Resolve]](promise, y)。  
+2.3.3.3.2. 如果resolvePromise以reason r为参数被调用，则用r为参数reject promise。  
+2.3.3.3.3. 如果resolvePromise和rejectPromise都被调用了，或者被同一个参数多次调用，优先执行第一次调用，其余的忽略。  
+2.3.3.3.4. 如果调用then时，扔出错误e。  
+2.3.3.3.4.1. 如果resolvePromise或者rejectPromise已经被调用，忽略他。  
+2.3.3.3.4.2. 否则，以e为reason进行reject。  
+2.3.3.4. 如果then不是function，promise fulfill x。  
+2.3.4. 如果x不是object或者function，promise fulfill x。  
+如果promise被一个由thenable组成的循环链resolved，那么promise的决策过程将执行决策过程，造成无限递归。鼓励提供对这种递归的检测并且用TypeError去reject promise，但是不是必须去实现。[3.6]  
 
-> 3. Notes
+> 3. Notes  
 3.1 Here “platform code” means engine, environment, and promise implementation code. In practice, this requirement ensures that onFulfilled and onRejected execute asynchronously, after the event loop turn in which then is called, and with a fresh stack. This can be implemented with either a “macro-task” mechanism such as setTimeout or setImmediate, or with a “micro-task” mechanism such as MutationObserver or process.nextTick. Since the promise implementation is considered platform code, it may itself contain a task-scheduling queue or “trampoline” in which the handlers are called.
 
-3. 附录
+3. 附录  
 3.1. 这里的“平台代码”指的是引擎，环境，promise 实现代码。实际上，要求确保onFulfilled和OnRejected异步执行，在then所在的事件轮询后被调用，并且在新的堆栈中。可以用setTimeout或者setImmediate之类的“宏任务”去实现。或者MutationObserver或者process.nextTick之类的“微任务”去实现。因为promise的实现被认为是平台代码，他可能包含自身任务队列。
 
 ps: 异步任务时，JS引擎会将任务划分至macrotask和microtask任务队列，执行一个macrotask的任务后，执行全部的microtask任务，直到所有任务执行完。
@@ -182,7 +182,6 @@ ps: 异步任务时，JS引擎会将任务划分至macrotask和microtask任务�
 3.3. 如果实现所有要求，可能允许promise2 = promise1，但是每个实现上述规则的实例，都应该记录什么情况下才可以产生promise2 === promise1。
 
 > 3.4. Generally, it will only be known that x is a true promise if it comes from the current implementation. This clause allows the use of implementation-specific means to adopt the state of known-conformant promises.
-
 
 3.4. 只有符合现有规范的才是真正的promise，该条文允许使用特定的实现方式的库接受符合已知promise的state
 
